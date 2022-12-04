@@ -5,7 +5,7 @@ import playsound, subprocess
 running = True
 
 def speak(text):
-    tts = gTTS(text=text, lang='ro')
+    tts = gTTS(text=text, lang='en')
     filename = 'voice.mp3'
     tts.save(filename)
     playsound.playsound(filename)
@@ -14,11 +14,11 @@ def speak(text):
 def get_audio():
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        print("Ascult...")
+        print("Listening...")
         audio = r.listen(source)
         said = ""
         try:
-            said = r.recognize_google(audio, language='ro')
+            said = r.recognize_google(audio, language='en')
             print(said)
         except Exception as e:
             print(str(e))
@@ -35,37 +35,34 @@ if __name__ == "__main__":
         if text == '':
             continue
 
-        elif 'deschide youtube' in text:
+        elif 'open youtube' in text:
             webbrowser.open_new_tab("https://www.youtube.com")
-            speak("Am deschis youtube")
+            speak("opened youtube")
 
-        elif 'deschide google' in text:
+        elif 'open google' in text:
             webbrowser.open_new_tab("https://google.ro")
-            speak("Am deschis google")
+            speak("opened google")
 
-        elif 'deschide gmail' in text:
+        elif 'open gmail' in text:
             webbrowser.open_new_tab("https://gmail.com")
-            speak("Am deschis gmail")
+            speak("opened gmail")
 
-        elif 'deschide root' in text:
-            os.chdir(r"C:\Users\flori\Desktop") 
+        elif 'open root' in text:
+            os.chdir(r"C:\Users\flori\Desktop") #change this path.
             subprocess.Popen("SSH.exe")
-            speak("Am deschis putty")
+            speak("opened putty")
 
         elif 'deschide vizual' in text:
-            os.chdir(r"C:\Users\flori\AppData\Local\Programs\Microsoft VS Code")
+            os.chdir(r"C:\Users\flori\AppData\Local\Programs\Microsoft VS Code") # change this path.
             subprocess.Popen("Code.exe")
-            speak("Am deschis Visual Studio Code")
+            speak("opened Visual Studio Code")
 
         elif 'time' in text:
             strTime=datetime.datetime.now().strftime("%H:%M:%S")
-            speak(f"este {strTime}")
+            speak(f"it's {strTime}")
 
-        elif "salut" in str(text):
-            speak("salut")
-
-        elif "telefon" in str(text):
-            speak("Trebuie sÄƒ dorm È™i eu RareÈ™, ne mai jucÄƒm mÃ¢ine.")
+        elif "hello" in str(text):
+            speak("hi")
 
         elif "exit" in str(text) or "bye" in str(text) or "sleep" in str(text):
             running = False
